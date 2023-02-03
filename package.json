@@ -20,6 +20,7 @@
   "homepage": "https://github.com/cityssm/street-name-normalize#readme",
   "dependencies": {
     "is-upper-case": "^2.0.2",
+    "object.hasown": "^1.1.2",
     "street-suffix": "^1.0.1",
     "title-case": "^3.0.3"
   },

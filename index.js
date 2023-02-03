@@ -1,6 +1,10 @@
 import { classifyStreetNamePiece, normalizeStreetNamePiece } from './helpers.js';
 import { titleCase } from 'title-case';
 import { isUpperCase } from 'is-upper-case';
+import hasOwn from "object.hasown";
+if (!Object.hasOwn) {
+    Object.hasOwn = hasOwn;
+}
 export const DEFAULT_NAME_PIECE_SUBSTITUTIONS = {
     '1st': 'First',
     '2nd': 'Second',

@@ -7,6 +7,12 @@ import {
 import { titleCase } from 'title-case'
 import { isUpperCase } from 'is-upper-case'
 
+import hasOwn from "object.hasown"
+
+if (!Object.hasOwn) {
+	Object.hasOwn = hasOwn;
+}
+
 export interface NormalizeStreetNameOptions {
   outputCase?: 'upper' | 'lower' | 'proper' | 'input'
   namePieceSubstitutions?: Record<string, string>
