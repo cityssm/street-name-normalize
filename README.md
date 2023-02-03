@@ -2,7 +2,7 @@
 
 Takes street names with various abbreviations and attempts to expand them.
 
-## Installation
+## Installation (Coming Soon)
 
     npm install @cityssm/street-name-normalize
 
@@ -22,4 +22,4 @@ normalizeStreetName('St  Georges Av E')
 
 ## Need a Sault Ste. Marie, Ontario specific solution?
 
-See the related cityssm/street-name-normalize-ssm project.
+See the related cityssm/street-name-normalize-ssm project (Coming soon).
