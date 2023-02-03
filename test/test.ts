@@ -14,7 +14,7 @@ describe('normalizeStreetName', () => {
         }),
         properName.toUpperCase()
       )
-      
+
       assert.strictEqual(
         normalizeStreetName(unnormalizedName, {
           outputCase: 'proper'
@@ -23,7 +23,7 @@ describe('normalizeStreetName', () => {
       )
     }
   })
-  
+
   it("Normalizes 'Second Line West'", () => {
     const properName = 'Second Line West'
 
@@ -36,7 +36,7 @@ describe('normalizeStreetName', () => {
         }),
         properName.toLowerCase()
       )
-      
+
       assert.strictEqual(
         normalizeStreetName(unnormalizedName, {
           outputCase: 'proper'
@@ -44,7 +44,7 @@ describe('normalizeStreetName', () => {
         properName
       )
     }
-  })  
+  })
 
   it("Normalizes 'Highway 17 North'", () => {
     const properName = 'Highway 17 North'
@@ -58,7 +58,7 @@ describe('normalizeStreetName', () => {
         }),
         properName.toLowerCase()
       )
-      
+
       assert.strictEqual(
         normalizeStreetName(unnormalizedName, {
           outputCase: 'proper'
@@ -80,7 +80,7 @@ describe('normalizeStreetName', () => {
         }),
         properName.toUpperCase()
       )
-      
+
       assert.strictEqual(
         normalizeStreetName(unnormalizedName, {
           outputCase: 'proper'
@@ -102,7 +102,7 @@ describe('normalizeStreetName', () => {
         }),
         properName.toUpperCase()
       )
-      
+
       assert.strictEqual(
         normalizeStreetName(unnormalizedName, {
           outputCase: 'proper'
