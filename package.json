@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Takes street names with various abbreviations and attempts to expand them.",
+  "keywords": [
+    "address",
+    "sault-ste-marie",
+    "street-names",
+    "streets"
+  ],
   "exports": {
     ".": "./index.js",
     "./ssm.js": "./ssm.js"
