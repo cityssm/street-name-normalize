@@ -1,4 +1,6 @@
 import streetType from 'street-suffix';
+import { titleCase } from 'title-case';
+import { isUpperCase } from 'is-upper-case';
 const missingStreetNameTypes = {
     crt: 'Court',
     line: 'Line'
@@ -25,25 +27,31 @@ function normalizeStreetNameType(unnormalizedStreetNameType) {
         unnormalizedStreetNameType);
 }
 function normalizeStreetNameSuffix(unnormalizedStreetNameSuffix) {
+    let normalizedSuffix = unnormalizedStreetNameSuffix;
     switch (unnormalizedStreetNameSuffix.toLowerCase()) {
         case 'n': {
-            return 'North';
+            normalizedSuffix = 'North';
+            break;
         }
         case 'e': {
-            return 'East';
+            normalizedSuffix = 'East';
+            break;
         }
         case 'ex':
         case 'ext': {
-            return 'Extension';
+            normalizedSuffix = 'Extension';
+            break;
         }
         case 's': {
-            return 'South';
+            normalizedSuffix = 'South';
+            break;
         }
         case 'w': {
-            return 'West';
+            normalizedSuffix = 'West';
+            break;
         }
     }
-    return unnormalizedStreetNameSuffix;
+    return normalizedSuffix;
 }
 export function normalizeStreetNamePiece(unnormalizedStreetNamePiece, streetNamePart) {
     switch (streetNamePart) {
@@ -55,4 +63,20 @@ export function normalizeStreetNamePiece(unnormalizedStreetNamePiece, streetName
         }
     }
     return unnormalizedStreetNamePiece;
+}
+export function applyCase(normalizedStreetNamePiece, outputCase) {
+    let casePiece = normalizedStreetNamePiece;
+    switch (outputCase) {
+        case 'upper': {
+            casePiece = normalizedStreetNamePiece.toUpperCase();
+            break;
+        }
+        case 'proper': {
+            casePiece = titleCase(isUpperCase(normalizedStreetNamePiece)
+                ? normalizedStreetNamePiece.toLowerCase()
+                : normalizedStreetNamePiece);
+            break;
+        }
+    }
+    return casePiece;
 }

@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/indent */
 import hasOwn from 'object.hasown'
-import { titleCase } from 'title-case'
-import { isUpperCase } from 'is-upper-case'
 
-import { classifyStreetNamePiece, normalizeStreetNamePiece } from './helpers.js'
+import {
+  applyCase,
+  classifyStreetNamePiece,
+  normalizeStreetNamePiece
+} from './helpers.js'
 
 import {
   DEFAULT_OPTIONS,
@@ -33,6 +35,7 @@ export function normalizeStreetName(
       continue
     }
 
+    // Classify the street name piece
     currentStreetNamePieceType = Object.hasOwn(
       options.classifyStreetNamePieceOverrides!,
       unnormalizedStreetNamePiece.toLowerCase()
@@ -45,11 +48,13 @@ export function normalizeStreetName(
           currentStreetNamePieceType
         )
 
+    // Normalize the street name piece
     let normalizedStreetNamePiece = normalizeStreetNamePiece(
       unnormalizedStreetNamePiece,
       currentStreetNamePieceType
     )
 
+    // Apply any overrides
     if (
       currentStreetNamePieceType === 'name' &&
       Object.hasOwn(
@@ -61,21 +66,13 @@ export function normalizeStreetName(
         options.namePieceSubstitutions![normalizedStreetNamePiece.toLowerCase()]
     }
 
-    switch (options.outputCase) {
-      case 'upper': {
-        normalizedStreetNamePiece = normalizedStreetNamePiece.toUpperCase()
-        break
-      }
-      case 'proper': {
-        normalizedStreetNamePiece = titleCase(
-          isUpperCase(normalizedStreetNamePiece)
-            ? normalizedStreetNamePiece.toLowerCase()
-            : normalizedStreetNamePiece
-        )
-        break
-      }
-    }
+    // Set the proper casing
+    normalizedStreetNamePiece = applyCase(
+      normalizedStreetNamePiece,
+      options.outputCase!
+    )
 
+    // Save the result
     normalizedStreetNamePieces.push(normalizedStreetNamePiece)
   }
 

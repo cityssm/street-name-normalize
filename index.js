@@ -1,7 +1,5 @@
 import hasOwn from 'object.hasown';
-import { titleCase } from 'title-case';
-import { isUpperCase } from 'is-upper-case';
-import { classifyStreetNamePiece, normalizeStreetNamePiece } from './helpers.js';
+import { applyCase, classifyStreetNamePiece, normalizeStreetNamePiece } from './helpers.js';
 import { DEFAULT_OPTIONS } from './options.js';
 if (!Object.hasOwn) {
     Object.hasOwn = hasOwn;
@@ -24,18 +22,7 @@ export function normalizeStreetName(unnormalizedStreetName, userOptions = {}) {
             normalizedStreetNamePiece =
                 options.namePieceSubstitutions[normalizedStreetNamePiece.toLowerCase()];
         }
-        switch (options.outputCase) {
-            case 'upper': {
-                normalizedStreetNamePiece = normalizedStreetNamePiece.toUpperCase();
-                break;
-            }
-            case 'proper': {
-                normalizedStreetNamePiece = titleCase(isUpperCase(normalizedStreetNamePiece)
-                    ? normalizedStreetNamePiece.toLowerCase()
-                    : normalizedStreetNamePiece);
-                break;
-            }
-        }
+        normalizedStreetNamePiece = applyCase(normalizedStreetNamePiece, options.outputCase);
         normalizedStreetNamePieces.push(normalizedStreetNamePiece);
     }
     return normalizedStreetNamePieces.join(' ');
