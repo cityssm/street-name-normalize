@@ -9,7 +9,7 @@
 
 Takes street names with various abbreviations and attempts to expand them.
 
-## Installation (Coming Soon)
+## Installation
 
     npm install @cityssm/street-name-normalize
 
