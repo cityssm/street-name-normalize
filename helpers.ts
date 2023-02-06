@@ -1,6 +1,5 @@
 import streetType from 'street-suffix'
-
-export type StreetNamePart = 'name' | 'type' | 'suffix'
+import { type StreetNamePart } from './options.js'
 
 const missingStreetNameTypes = {
   crt: 'Court',

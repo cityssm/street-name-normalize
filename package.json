@@ -3,7 +3,13 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Takes street names with various abbreviations and attempts to expand them.",
-  "exports": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./ssm.js": "./ssm.js"
+  },
+  "engines": {
+    "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+  },
   "scripts": {
     "test": "mocha",
     "coverage": "c8 --reporter=lcov --reporter=text --reporter=text-summary mocha"

@@ -1,42 +1,20 @@
-import {
-  classifyStreetNamePiece,
-  normalizeStreetNamePiece,
-  StreetNamePart
-} from './helpers.js'
-
+/* eslint-disable @typescript-eslint/indent */
+import hasOwn from 'object.hasown'
 import { titleCase } from 'title-case'
 import { isUpperCase } from 'is-upper-case'
 
-import hasOwn from "object.hasown"
+import { classifyStreetNamePiece, normalizeStreetNamePiece } from './helpers.js'
 
+import {
+  DEFAULT_OPTIONS,
+  type StreetNamePart,
+  type NormalizeStreetNameOptions
+} from './options.js'
+
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
 if (!Object.hasOwn) {
-	Object.hasOwn = hasOwn;
+  Object.hasOwn = hasOwn
 }
-
-export interface NormalizeStreetNameOptions {
-  outputCase?: 'upper' | 'lower' | 'proper' | 'input'
-  namePieceSubstitutions?: Record<string, string>
-}
-
-export const DEFAULT_NAME_PIECE_SUBSTITUTIONS: Record<string, string> = {
-  '1st': 'First',
-  '2nd': 'Second',
-  '3rd': 'Third',
-  '4th': 'Fourth',
-  '5th': 'Fifth',
-  '6th': 'Sixth',
-  e: 'East',
-  hwy: 'Highway',
-  n: 'North',
-  s: 'South',
-  st: 'St.',
-  w: 'West'
-}
-
-export const DEFAULT_OPTIONS: NormalizeStreetNameOptions = Object.freeze({
-  outputCase: 'upper',
-  namePieceSubstitutions: DEFAULT_NAME_PIECE_SUBSTITUTIONS
-} as NormalizeStreetNameOptions)
 
 export function normalizeStreetName(
   unnormalizedStreetName: string,
@@ -55,10 +33,17 @@ export function normalizeStreetName(
       continue
     }
 
-    currentStreetNamePieceType = classifyStreetNamePiece(
-      unnormalizedStreetNamePiece,
-      currentStreetNamePieceType
+    currentStreetNamePieceType = Object.hasOwn(
+      options.classifyStreetNamePieceOverrides!,
+      unnormalizedStreetNamePiece.toLowerCase()
     )
+      ? options.classifyStreetNamePieceOverrides![
+          unnormalizedStreetNamePiece.toLowerCase()
+        ]
+      : classifyStreetNamePiece(
+          unnormalizedStreetNamePiece,
+          currentStreetNamePieceType
+        )
 
     let normalizedStreetNamePiece = normalizeStreetNamePiece(
       unnormalizedStreetNamePiece,
@@ -79,10 +64,6 @@ export function normalizeStreetName(
     switch (options.outputCase) {
       case 'upper': {
         normalizedStreetNamePiece = normalizedStreetNamePiece.toUpperCase()
-        break
-      }
-      case 'lower': {
-        normalizedStreetNamePiece = normalizedStreetNamePiece.toLowerCase()
         break
       }
       case 'proper': {

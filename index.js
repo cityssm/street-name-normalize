@@ -1,28 +1,11 @@
-import { classifyStreetNamePiece, normalizeStreetNamePiece } from './helpers.js';
+import hasOwn from 'object.hasown';
 import { titleCase } from 'title-case';
 import { isUpperCase } from 'is-upper-case';
-import hasOwn from "object.hasown";
+import { classifyStreetNamePiece, normalizeStreetNamePiece } from './helpers.js';
+import { DEFAULT_OPTIONS } from './options.js';
 if (!Object.hasOwn) {
     Object.hasOwn = hasOwn;
 }
-export const DEFAULT_NAME_PIECE_SUBSTITUTIONS = {
-    '1st': 'First',
-    '2nd': 'Second',
-    '3rd': 'Third',
-    '4th': 'Fourth',
-    '5th': 'Fifth',
-    '6th': 'Sixth',
-    e: 'East',
-    hwy: 'Highway',
-    n: 'North',
-    s: 'South',
-    st: 'St.',
-    w: 'West'
-};
-export const DEFAULT_OPTIONS = Object.freeze({
-    outputCase: 'upper',
-    namePieceSubstitutions: DEFAULT_NAME_PIECE_SUBSTITUTIONS
-});
 export function normalizeStreetName(unnormalizedStreetName, userOptions = {}) {
     const options = Object.assign({}, DEFAULT_OPTIONS, userOptions);
     const unnormalizedStreetNamePieces = (unnormalizedStreetName ?? '').split(' ');
@@ -32,7 +15,9 @@ export function normalizeStreetName(unnormalizedStreetName, userOptions = {}) {
         if (unnormalizedStreetNamePiece === '') {
             continue;
         }
-        currentStreetNamePieceType = classifyStreetNamePiece(unnormalizedStreetNamePiece, currentStreetNamePieceType);
+        currentStreetNamePieceType = Object.hasOwn(options.classifyStreetNamePieceOverrides, unnormalizedStreetNamePiece.toLowerCase())
+            ? options.classifyStreetNamePieceOverrides[unnormalizedStreetNamePiece.toLowerCase()]
+            : classifyStreetNamePiece(unnormalizedStreetNamePiece, currentStreetNamePieceType);
         let normalizedStreetNamePiece = normalizeStreetNamePiece(unnormalizedStreetNamePiece, currentStreetNamePieceType);
         if (currentStreetNamePieceType === 'name' &&
             Object.hasOwn(options.namePieceSubstitutions, normalizedStreetNamePiece.toLowerCase())) {
@@ -42,10 +27,6 @@ export function normalizeStreetName(unnormalizedStreetName, userOptions = {}) {
         switch (options.outputCase) {
             case 'upper': {
                 normalizedStreetNamePiece = normalizedStreetNamePiece.toUpperCase();
-                break;
-            }
-            case 'lower': {
-                normalizedStreetNamePiece = normalizedStreetNamePiece.toLowerCase();
                 break;
             }
             case 'proper': {

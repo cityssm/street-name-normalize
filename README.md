@@ -18,8 +18,14 @@ Takes street names with various abbreviations and attempts to expand them.
 ```javascript
 import { normalizeStreetName } from '@cityssm/street-name-normalize'
 
-normalizeStreetName('St  Georges Av E')
-// => ST. GEORGES AVENUE WEST
+// Sault Ste. Marie, Ontario specific settings
+import { normalizeSsmStreetName } from '@cityssm/street-name-normalize/ssm.js'
+
+normalizeStreetName('1st Ave')
+// => FIRST AVENUE
+
+normalizeSsmStreetName('ST GEORGES AVE E')
+// => ST. GEORGE'S AVENUE EAST
 ```
 
 ## Features
@@ -27,6 +33,3 @@ normalizeStreetName('St  Georges Av E')
 - Typescript support.
 - Expands common street name type abbreviations.
 
-## Need a Sault Ste. Marie, Ontario specific solution?
-
-See the related cityssm/street-name-normalize-ssm project (Coming soon).
