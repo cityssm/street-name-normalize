@@ -32,3 +32,8 @@ normalizeSsmStreetName('ST GEORGES AVE E')
 
 - Typescript support.
 - Expands common street name type abbreviations.
+
+## Related Projects
+
+[**@cityssm/civic-address-format**](https://github.com/cityssm/civic-address-format)<br />
+Formats a civic address from its pieces using Canada Post guidelines.
