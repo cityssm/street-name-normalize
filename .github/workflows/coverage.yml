@@ -10,10 +10,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: [ 20, 22, 24, 26 ]
+        node: [ 22, 24, 26 ]
     env:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-      
+
     name: Node ${{ matrix.node }}
     steps:
       - uses: actions/checkout@v6
@@ -26,13 +26,13 @@ jobs:
       - name: Install Application
         run: |
           npm ci
-          npm install -g mocha c8
+          npm install -g c8
 
       - name: Run Coverage Testing
         run: npm run coverage
 
       - name: Codecov
-        if: ${{ github.event_name != 'pull_request' && env.CODECOV_TOKEN != '' && matrix.node == 20 }}
+        if: ${{ github.event_name != 'pull_request' && env.CODECOV_TOKEN != '' && matrix.node == 22 }}
         run: |
           curl -Os https://uploader.codecov.io/latest/linux/codecov
           chmod +x codecov

@@ -1,6 +1,6 @@
 /* eslint-disable no-await-in-loop */
 
-import * as assert from 'node:assert'
+import assert from 'node:assert'
 import { describe, it } from 'node:test'
 
 import normalizeStreetName from '../index.js'
