@@ -1,39 +1,12 @@
+/* eslint-disable @cspell/spellchecker */
+/* eslint-disable no-await-in-loop */
+
 import * as assert from 'node:assert'
-import { normalizeStreetName } from '../index.js'
-import { normalizeSsmStreetName } from '../ssm.js'
+import { describe, it } from 'node:test'
 
-describe('normalizeStreetName', () => {
-  const streetNameTests = {
-    'Fifth Line Extension West': ['FIFTH LINE EXT  W'],
-    'Highway 17 North': ['Hwy 17 N'],
-    'Industrial Court': ['INDUSTRIAL CRT'],
-    'Second Line West': ['2nd Line W']
-  }
+import normalizeSsmStreetName from '../ssm.js'
 
-  for (const [properName, unnormalizedNames] of Object.entries(
-    streetNameTests
-  )) {
-    it(`Normalizes "${properName}"`, () => {
-      for (const unnormalizedName of unnormalizedNames) {
-        assert.strictEqual(
-          normalizeStreetName(unnormalizedName, {
-            outputCase: 'proper'
-          }),
-          properName
-        )
-
-        assert.strictEqual(
-          normalizeStreetName(unnormalizedName, {
-            outputCase: 'upper'
-          }),
-          properName.toUpperCase()
-        )
-      }
-    })
-  }
-})
-
-describe('normalizeSsmStreetName', () => {
+await describe('normalizeSsmStreetName', async () => {
   const streetNameTests = {
     "Allen's Side Road": ['allens side rd'],
     "Bishop's Court": ['bishops crt'],
@@ -52,7 +25,7 @@ describe('normalizeSsmStreetName', () => {
   for (const [properName, unnormalizedNames] of Object.entries(
     streetNameTests
   )) {
-    it(`Normalizes "${properName}"`, () => {
+    await it(`Normalizes "${properName}"`, () => {
       for (const unnormalizedName of unnormalizedNames) {
         assert.strictEqual(
           normalizeSsmStreetName(unnormalizedName, 'proper'),

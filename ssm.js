@@ -1,12 +1,13 @@
-import { DEFAULT_NAME_PIECE_SUBSTITUTIONS, DEFAULT_OPTIONS } from './options.js';
-import { normalizeStreetName } from './index.js';
-const SSM_CLASSIFY_STREET_NAME_PIECE_OVERRIDES = {
+import normalizeStreetName, { DEFAULT_OPTIONS } from './index.js';
+import { streetNameSubstitutions } from './substitutions/streetNames.js';
+const ssmClassifyStreetNamePieceOverrides = {
     garden: 'name',
     riv: 'name',
     river: 'name',
     rvr: 'name'
 };
-const SSM_NAME_PIECE_SUBTITUTIONS = Object.assign({
+const ssmStreetNameSubstitutions = {
+    ...streetNameSubstitutions,
     allens: "Allen's",
     andrews: "Andrew's",
     ba: 'Bay',
@@ -30,14 +31,12 @@ const SSM_NAME_PIECE_SUBTITUTIONS = Object.assign({
     riv: 'River',
     rive: 'River',
     rvr: 'River'
-}, DEFAULT_NAME_PIECE_SUBSTITUTIONS);
-const SSM_OPTIONS = Object.assign({}, DEFAULT_OPTIONS, {
-    namePieceSubstitutions: SSM_NAME_PIECE_SUBTITUTIONS,
-    classifyStreetNamePieceOverrides: SSM_CLASSIFY_STREET_NAME_PIECE_OVERRIDES
-});
-export function normalizeSsmStreetName(unnormalizedStreetName, outputCase) {
-    return normalizeStreetName(unnormalizedStreetName, outputCase === undefined
-        ? SSM_OPTIONS
-        : Object.assign({}, SSM_OPTIONS, { outputCase }));
+};
+const SSM_OPTIONS = {
+    ...DEFAULT_OPTIONS,
+    classifyStreetNamePieceOverrides: ssmClassifyStreetNamePieceOverrides,
+    namePieceSubstitutions: ssmStreetNameSubstitutions
+};
+export default function normalizeSsmStreetName(unnormalizedStreetName, outputCase) {
+    return normalizeStreetName(unnormalizedStreetName, outputCase === undefined ? SSM_OPTIONS : { ...SSM_OPTIONS, outputCase });
 }
-export default normalizeSsmStreetName;

@@ -1,33 +1,39 @@
-/* eslint-disable @typescript-eslint/indent */
-import hasOwn from 'object.hasown'
-
 import {
   applyCase,
   classifyStreetNamePiece,
   normalizeStreetNamePiece
 } from './helpers.js'
+import { streetNameSubstitutions } from './substitutions/streetNames.js'
+import type {
+  NormalizeStreetNameOptions,
+  NormalizeStreetNameOutputCase,
+  StreetNamePart
+} from './types.js'
 
-import {
-  DEFAULT_OPTIONS,
-  type StreetNamePart,
-  type NormalizeStreetNameOptions
-} from './options.js'
+export const DEFAULT_OPTIONS: NormalizeStreetNameOptions =
+  Object.freeze<NormalizeStreetNameOptions>({
+    classifyStreetNamePieceOverrides: {},
+    namePieceSubstitutions: streetNameSubstitutions,
+    outputCase: 'upper'
+  })
 
-// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-if (!Object.hasOwn) {
-  Object.hasOwn = hasOwn
-}
-
-export function normalizeStreetName(
+export default function normalizeStreetName(
   unnormalizedStreetName: string,
-  userOptions: NormalizeStreetNameOptions = {}
+  userOptionsOrOutputCase:
+    | NormalizeStreetNameOutputCase
+    | Partial<NormalizeStreetNameOptions> = {}
 ): string {
-  const options = Object.assign({}, DEFAULT_OPTIONS, userOptions)
+  const userOptions =
+    typeof userOptionsOrOutputCase === 'string'
+      ? { outputCase: userOptionsOrOutputCase }
+      : userOptionsOrOutputCase
 
-  const unnormalizedStreetNamePieces = (unnormalizedStreetName ?? '').split(' ')
+  const options = { ...DEFAULT_OPTIONS, ...userOptions }
+
+  const unnormalizedStreetNamePieces = unnormalizedStreetName.split(' ')
 
   const normalizedStreetNamePieces: string[] = []
-  let currentStreetNamePieceType: StreetNamePart | '' = ''
+  let currentStreetNamePieceType: '' | StreetNamePart = ''
 
   for (const unnormalizedStreetNamePiece of unnormalizedStreetNamePieces) {
     // Skip empty pieces
@@ -36,11 +42,12 @@ export function normalizeStreetName(
     }
 
     // Classify the street name piece
+
     currentStreetNamePieceType = Object.hasOwn(
-      options.classifyStreetNamePieceOverrides!,
+      options.classifyStreetNamePieceOverrides,
       unnormalizedStreetNamePiece.toLowerCase()
     )
-      ? options.classifyStreetNamePieceOverrides![
+      ? options.classifyStreetNamePieceOverrides[
           unnormalizedStreetNamePiece.toLowerCase()
         ]
       : classifyStreetNamePiece(
@@ -58,18 +65,18 @@ export function normalizeStreetName(
     if (
       currentStreetNamePieceType === 'name' &&
       Object.hasOwn(
-        options.namePieceSubstitutions!,
+        options.namePieceSubstitutions,
         normalizedStreetNamePiece.toLowerCase()
       )
     ) {
       normalizedStreetNamePiece =
-        options.namePieceSubstitutions![normalizedStreetNamePiece.toLowerCase()]
+        options.namePieceSubstitutions[normalizedStreetNamePiece.toLowerCase()]
     }
 
     // Set the proper casing
     normalizedStreetNamePiece = applyCase(
       normalizedStreetNamePiece,
-      options.outputCase!
+      options.outputCase
     )
 
     // Save the result
@@ -79,4 +86,7 @@ export function normalizeStreetName(
   return normalizedStreetNamePieces.join(' ')
 }
 
-export default normalizeStreetName
+export type {
+  NormalizeStreetNameOptions,
+  NormalizeStreetNameOutputCase
+} from './types.js'

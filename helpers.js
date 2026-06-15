@@ -1,74 +1,48 @@
-import streetType from 'street-suffix';
 import { titleCase } from 'title-case';
-import { isUpperCase } from 'is-upper-case';
-const missingStreetNameTypes = {
-    crt: 'Court',
-    line: 'Line'
-};
+import { streetNameSuffixSubstitutions } from './substitutions/streetNames.js';
+import { streetNameTypes } from './substitutions/streetNameTypes.js';
 export function classifyStreetNamePiece(unnormalizedStreetNamePiece, previousStreetNamePart) {
+    // If 'type' or 'suffix', return 'suffix'
     if (previousStreetNamePart === 'type' ||
         previousStreetNamePart === 'suffix') {
         return 'suffix';
     }
+    // If '', return 'name'
     if (previousStreetNamePart === '') {
         return 'name';
     }
-    const hasTypeRecord = streetType.expand(unnormalizedStreetNamePiece) !== undefined ||
-        streetType.abbreviate(unnormalizedStreetNamePiece) !== undefined;
-    if (hasTypeRecord ||
-        Object.keys(missingStreetNameTypes).includes(unnormalizedStreetNamePiece.toLowerCase())) {
+    if (Object.hasOwn(streetNameTypes, unnormalizedStreetNamePiece.toLowerCase())) {
         return 'type';
     }
     return 'name';
 }
 function normalizeStreetNameType(unnormalizedStreetNameType) {
-    return (missingStreetNameTypes[unnormalizedStreetNameType.toLowerCase()] ??
-        streetType.expand(unnormalizedStreetNameType) ??
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return (streetNameTypes[unnormalizedStreetNameType.toLowerCase()] ??
         unnormalizedStreetNameType);
 }
 function normalizeStreetNameSuffix(unnormalizedStreetNameSuffix) {
-    let normalizedSuffix = unnormalizedStreetNameSuffix;
-    switch (unnormalizedStreetNameSuffix.toLowerCase()) {
-        case 'n': {
-            normalizedSuffix = 'North';
-            break;
-        }
-        case 'e': {
-            normalizedSuffix = 'East';
-            break;
-        }
-        case 'ex':
-        case 'ext': {
-            normalizedSuffix = 'Extension';
-            break;
-        }
-        case 's': {
-            normalizedSuffix = 'South';
-            break;
-        }
-        case 'w': {
-            normalizedSuffix = 'West';
-            break;
-        }
-    }
-    return normalizedSuffix;
+    return (streetNameSuffixSubstitutions[unnormalizedStreetNameSuffix.toLowerCase()] ??
+        unnormalizedStreetNameSuffix);
 }
 export function normalizeStreetNamePiece(unnormalizedStreetNamePiece, streetNamePart) {
     switch (streetNamePart) {
-        case 'type': {
-            return normalizeStreetNameType(unnormalizedStreetNamePiece);
+        case 'name': {
+            return unnormalizedStreetNamePiece;
         }
         case 'suffix': {
             return normalizeStreetNameSuffix(unnormalizedStreetNamePiece);
         }
+        case 'type': {
+            return normalizeStreetNameType(unnormalizedStreetNamePiece);
+        }
     }
-    return unnormalizedStreetNamePiece;
 }
 export function applyCase(normalizedStreetNamePiece, outputCase) {
     let casePiece = normalizedStreetNamePiece;
     switch (outputCase) {
-        case 'upper': {
-            casePiece = normalizedStreetNamePiece.toUpperCase();
+        case 'input': {
+            casePiece = normalizedStreetNamePiece;
             break;
         }
         case 'proper': {
@@ -77,6 +51,13 @@ export function applyCase(normalizedStreetNamePiece, outputCase) {
                 : normalizedStreetNamePiece);
             break;
         }
+        case 'upper': {
+            casePiece = normalizedStreetNamePiece.toUpperCase();
+            break;
+        }
     }
     return casePiece;
+}
+function isUpperCase(string_) {
+    return string_ === string_.toUpperCase();
 }
