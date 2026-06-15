@@ -1,3 +1,4 @@
+/* eslint-disable @cspell/spellchecker */
 import normalizeStreetName, { DEFAULT_OPTIONS } from './index.js';
 import { streetNameSubstitutions } from './substitutions/streetNames.js';
 const ssmClassifyStreetNamePieceOverrides = {
@@ -14,8 +15,8 @@ const ssmStreetNameSubstitutions = {
     basils: "Basil's",
     beac: 'Beach',
     bishops: "Bishop's",
-    carmens: "Carmen's",
     c: 'Chenes',
+    carmens: "Carmen's",
     ch: 'Chenes',
     emmanu: 'Emmanuel',
     georges: "George's",
@@ -25,9 +26,9 @@ const ssmStreetNameSubstitutions = {
     p: 'Park',
     "people's": 'Peoples',
     "peoples'": 'Peoples',
+    pk: 'Park',
     pleasan: 'Pleasant',
     point: 'Pointe',
-    pk: 'Park',
     riv: 'River',
     rive: 'River',
     rvr: 'River'
