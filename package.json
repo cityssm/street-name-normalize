@@ -1,6 +1,6 @@
 {
   "name": "@cityssm/street-name-normalize",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Takes street names with various abbreviations and attempts to expand them.",
   "keywords": [
     "address",
@@ -45,6 +45,6 @@
     "prettier-config-cityssm": "^2.1.2"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   }
 }
