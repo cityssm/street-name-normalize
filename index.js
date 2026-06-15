@@ -5,6 +5,13 @@ export const DEFAULT_OPTIONS = Object.freeze({
     namePieceSubstitutions: streetNameSubstitutions,
     outputCase: 'upper'
 });
+/**
+ * Normalizes a street name by classifying each piece of the street name as a 'name', 'suffix', or 'type',
+ * applying substitutions, and setting the proper casing.
+ * @param unnormalizedStreetName The street name to normalize.
+ * @param userOptionsOrOutputCase User options or output case for normalization.
+ * @returns The normalized street name.
+ */
 export default function normalizeStreetName(unnormalizedStreetName, userOptionsOrOutputCase = {}) {
     const userOptions = typeof userOptionsOrOutputCase === 'string'
         ? { outputCase: userOptionsOrOutputCase }

@@ -37,6 +37,13 @@ const SSM_OPTIONS = {
     classifyStreetNamePieceOverrides: ssmClassifyStreetNamePieceOverrides,
     namePieceSubstitutions: ssmStreetNameSubstitutions
 };
+/**
+ * Normalizes a street name by classifying each piece of the street name as a 'name', 'suffix', or 'type',
+ * applying substitutions, and setting the proper casing.
+ * @param unnormalizedStreetName The street name to normalize.
+ * @param outputCase The output case for the normalized street name.
+ * @returns The normalized street name.
+ */
 export default function normalizeSsmStreetName(unnormalizedStreetName, outputCase) {
     return normalizeStreetName(unnormalizedStreetName, outputCase === undefined ? SSM_OPTIONS : { ...SSM_OPTIONS, outputCase });
 }
