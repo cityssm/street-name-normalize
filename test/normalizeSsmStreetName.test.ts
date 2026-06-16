@@ -4,7 +4,7 @@
 import assert from 'node:assert'
 import { describe, it } from 'node:test'
 
-import normalizeSsmStreetName from '../ssm.js'
+import { normalizeSsmStreetName } from '../index.js'
 
 await describe('normalizeSsmStreetName', async () => {
   const streetNameTests = {

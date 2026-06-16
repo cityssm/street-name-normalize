@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 /* eslint-disable @cspell/spellchecker */
 
-export const streetNameTypes = {
+export const streetNameTypes: Record<Lowercase<string>, string> = {
   allee: 'Alley',
   alley: 'Alley',
   ally: 'Alley',
@@ -759,4 +759,4 @@ export const streetNameTypes = {
 
   wells: 'Wells',
   wls: 'Wells'
-} as const satisfies Record<string, string>
+} as const

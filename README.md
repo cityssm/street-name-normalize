@@ -16,16 +16,19 @@ npm install @cityssm/street-name-normalize
 ## Usage
 
 ```javascript
-import normalizeStreetName from '@cityssm/street-name-normalize'
-
-// Sault Ste. Marie, Ontario specific settings
-import normalizeSsmStreetName from '@cityssm/street-name-normalize/ssm.js'
+import normalizeStreetName, {
+  getAlternateStreetNameSpellings,
+  normalizeSsmStreetName
+} from '@cityssm/street-name-normalize'
 
 normalizeStreetName('1st Ave')
 // => FIRST AVENUE
 
 normalizeSsmStreetName('ST GEORGES AVE E')
 // => ST. GEORGE'S AVENUE EAST
+
+getAlternateStreetNameSpellings('Foster Dr')
+// => [ 'FOSTER DRIVE', 'FOSTER DR', 'FOSTER DRIV', 'FOSTER DRV' ]
 ```
 
 ## Features

@@ -4,6 +4,12 @@ import { streetNameSuffixSubstitutions } from './substitutions/streetNames.js'
 import { streetNameTypes } from './substitutions/streetNameTypes.js'
 import type { NormalizeStreetNameOutputCase, StreetNamePart } from './types.js'
 
+/**
+ * Classifies a piece of a street name as a 'name', 'suffix', or 'type' based on the previous piece of the street name and substitutions.
+ * @param unnormalizedStreetNamePiece The piece of the street name to classify.
+ * @param previousStreetNamePart The previous street name piece type.
+ * @returns The street name piece type ('name', 'suffix', or 'type').
+ */
 export function classifyStreetNamePiece(
   unnormalizedStreetNamePiece: string,
   previousStreetNamePart: '' | StreetNamePart
@@ -21,7 +27,9 @@ export function classifyStreetNamePiece(
     return 'name'
   }
 
-  if (Object.hasOwn(streetNameTypes, unnormalizedStreetNamePiece.toLowerCase())) {
+  if (
+    Object.hasOwn(streetNameTypes, unnormalizedStreetNamePiece.toLowerCase())
+  ) {
     return 'type'
   }
 
@@ -40,11 +48,19 @@ function normalizeStreetNameSuffix(
   unnormalizedStreetNameSuffix: string
 ): string {
   return (
-    streetNameSuffixSubstitutions[unnormalizedStreetNameSuffix.toLowerCase()] ??
-    unnormalizedStreetNameSuffix
+    streetNameSuffixSubstitutions[
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion
+      unnormalizedStreetNameSuffix.toLowerCase() as Lowercase<string>
+    ] ?? unnormalizedStreetNameSuffix
   )
 }
 
+/**
+ * Normalizes a street name piece by applying substitutions based on the piece type.
+ * @param unnormalizedStreetNamePiece The piece of the street name to normalize.
+ * @param streetNamePart The street name piece type ('name', 'suffix', or 'type').
+ * @returns The normalized street name piece.
+ */
 export function normalizeStreetNamePiece(
   unnormalizedStreetNamePiece: string,
   streetNamePart: StreetNamePart
@@ -62,6 +78,12 @@ export function normalizeStreetNamePiece(
   }
 }
 
+/**
+ * Applies the specified case to a normalized street name piece.
+ * @param normalizedStreetNamePiece The normalized street name piece to apply the case to.
+ * @param outputCase The output case to apply ('input', 'proper', or 'upper').
+ * @returns The normalized street name piece with the specified case applied.
+ */
 export function applyCase(
   normalizedStreetNamePiece: string,
   outputCase: NormalizeStreetNameOutputCase

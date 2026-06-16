@@ -22,7 +22,6 @@
   "type": "module",
   "exports": {
     ".": "./index.js",
-    "./ssm.js": "./ssm.js",
     "./substitutions": "./substitutions/index.js"
   },
   "files": [
@@ -34,9 +33,11 @@
   ],
   "scripts": {
     "coverage": "c8 --reporter=lcov --reporter=text --reporter=text-summary node --test  \"test/*.test.js\"",
-    "test": "node --test \"test/*.test.js\""
+    "test": "node --test \"test/*.test.js\"",
+    "test:alternativeSpellings": "node --test \"test/alternativeSpellings.test.js\""
   },
   "dependencies": {
+    "just-cartesian-product": "^4.2.0",
     "title-case": "^4.3.2"
   },
   "devDependencies": {

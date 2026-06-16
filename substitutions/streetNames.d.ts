@@ -1,4 +1,4 @@
 export declare const streetNameSubstitutions: {
-    [x: string]: string;
+    [x: Lowercase<string>]: string;
 };
-export declare const streetNameSuffixSubstitutions: Record<string, string>;
+export declare const streetNameSuffixSubstitutions: Record<Lowercase<string>, string>;

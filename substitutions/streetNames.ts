@@ -1,4 +1,4 @@
-const _ordinalSubstitutions: Record<string, string> = {
+const _ordinalSubstitutions: Record<Lowercase<string>, string> = {
   '1st': 'First',
   '2nd': 'Second',
   '3rd': 'Third',
@@ -20,16 +20,16 @@ const _ordinalSubstitutions: Record<string, string> = {
   '18th': 'Eighteenth',
   '19th': 'Nineteenth',
   '20th': 'Twentieth'
-}
+} as const
 
-const _directionSubstitutions: Record<string, string> = {
+const _directionSubstitutions: Record<Lowercase<string>, string> = {
   e: 'East',
   n: 'North',
   s: 'South',
   w: 'West'
 }
 
-const _otherSubstitutions: Record<string, string> = {
+const _otherSubstitutions: Record<Lowercase<string>, string> = {
   hwy: 'Highway',
   st: 'St.'
 }
@@ -40,7 +40,10 @@ export const streetNameSubstitutions = {
   ..._otherSubstitutions
 }
 
-export const streetNameSuffixSubstitutions: Record<string, string> = {
+export const streetNameSuffixSubstitutions: Record<
+  Lowercase<string>,
+  string
+> = {
   ..._directionSubstitutions,
   ex: 'Extension',
   ext: 'Extension'
