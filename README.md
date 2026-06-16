@@ -1,7 +1,7 @@
 # Street Name Normalize
 
 [![npm (scoped)](https://img.shields.io/npm/v/@cityssm/street-name-normalize)](https://www.npmjs.com/package/@cityssm/street-name-normalize)
-[![Maintainability](https://api.codeclimate.com/v1/badges/2eab5d8d0d0fe7d0ae41/maintainability)](https://codeclimate.com/github/cityssm/street-name-normalize/maintainability)
+[![DeepSource](https://app.deepsource.com/gh/cityssm/street-name-normalize.svg/?label=active+issues&show_trend=true&token=g_AoIfteYAsfzih4aTPJpKJa)](https://app.deepsource.com/gh/cityssm/street-name-normalize/)
 [![codecov](https://codecov.io/gh/cityssm/street-name-normalize/branch/main/graph/badge.svg?token=UX58MKB59P)](https://codecov.io/gh/cityssm/street-name-normalize)
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/cityssm/street-name-normalize/coverage.yml)](https://github.com/cityssm/street-name-normalize/actions/workflows/coverage.yml)
 
