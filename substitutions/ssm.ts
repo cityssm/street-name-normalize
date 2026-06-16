@@ -1,15 +1,17 @@
+/* eslint-disable @cspell/spellchecker */
+
 import type { StreetNamePart } from '../types.js'
 
 import { streetNameSubstitutions } from './streetNames.js'
 
-export const ssmClassifyStreetNamePieceOverrides = {
+export const ssmClassifyStreetNamePieceOverrides: Record<Lowercase<string>, StreetNamePart> = {
   garden: 'name',
   riv: 'name',
   river: 'name',
   rvr: 'name'
-} as const satisfies Record<Lowercase<string>, StreetNamePart>
+} as const
 
-export const ssmStreetNameSubstitutions = {
+export const ssmStreetNameSubstitutions: Record<Lowercase<string>, string> = {
   ...streetNameSubstitutions,
   allens: "Allen's",
   andrews: "Andrew's",
@@ -34,4 +36,4 @@ export const ssmStreetNameSubstitutions = {
   riv: 'River',
   rive: 'River',
   rvr: 'River'
-} as const satisfies Record<Lowercase<string>, string>
+} as const

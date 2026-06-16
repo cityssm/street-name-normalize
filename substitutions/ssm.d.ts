@@ -1,31 +1,3 @@
-export declare const ssmClassifyStreetNamePieceOverrides: {
-    readonly garden: "name";
-    readonly riv: "name";
-    readonly river: "name";
-    readonly rvr: "name";
-};
-export declare const ssmStreetNameSubstitutions: {
-    readonly allens: "Allen's";
-    readonly andrews: "Andrew's";
-    readonly ba: "Bay";
-    readonly basils: "Basil's";
-    readonly beac: "Beach";
-    readonly bishops: "Bishop's";
-    readonly c: "Chenes";
-    readonly carmens: "Carmen's";
-    readonly ch: "Chenes";
-    readonly emmanu: "Emmanuel";
-    readonly georges: "George's";
-    readonly leighs: "Leigh's";
-    readonly marys: "Mary's";
-    readonly michaels: "Michael's";
-    readonly p: "Park";
-    readonly "people's": "Peoples";
-    readonly "peoples'": "Peoples";
-    readonly pk: "Park";
-    readonly pleasan: "Pleasant";
-    readonly point: "Pointe";
-    readonly riv: "River";
-    readonly rive: "River";
-    readonly rvr: "River";
-};
+import type { StreetNamePart } from '../types.js';
+export declare const ssmClassifyStreetNamePieceOverrides: Record<Lowercase<string>, StreetNamePart>;
+export declare const ssmStreetNameSubstitutions: Record<Lowercase<string>, string>;

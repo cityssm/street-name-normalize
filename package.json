@@ -22,9 +22,11 @@
   "type": "module",
   "exports": {
     ".": "./index.js",
+    "./ssmSubstitutions": "./substitutions/ssm.js",
     "./substitutions": "./substitutions/index.js"
   },
   "files": [
+    "functions/*",
     "substitutions/*",
     "helpers.*",
     "index.*",

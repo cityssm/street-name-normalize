@@ -1,3 +1,4 @@
+/* eslint-disable @cspell/spellchecker */
 import { streetNameSubstitutions } from './streetNames.js';
 export const ssmClassifyStreetNamePieceOverrides = {
     garden: 'name',
